@@ -1,5 +1,5 @@
-var sln = "./Cake.Android.SdkManager.sln";
-var nuspec = "./Cake.Android.SdkManager.nuspec";
+var sln = "./Cake.Android.Adb.sln";
+var nuspec = "./Cake.Android.Adb.nuspec";
 
 var target = Argument ("target", "libs");
 
