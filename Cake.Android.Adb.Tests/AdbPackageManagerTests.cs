@@ -8,11 +8,11 @@ namespace Cake.AndroidAdb.Tests
 	[TestFixture]
 	public class AdbPackageManagerTests : TestFixtureBase
 	{
-		const string TOOL_PATH = "../../../android-sdk/platform-tools/adb";
+		const string SDK_ROOT = "../../../android-sdk";
 
 		AdbToolSettings GetAdbToolSettings()
 		{
-			return new AdbToolSettings { ToolPath = TOOL_PATH };
+			return new AdbToolSettings { SdkRoot = SDK_ROOT };
 		}
 
 		[Test]

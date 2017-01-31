@@ -32,7 +32,6 @@ namespace Cake.AndroidAdb
 			return new List<string> {
 				"adb",
 				"adb.exe",
-				"adb.bat",
 			};
 		}
 
@@ -41,7 +40,11 @@ namespace Cake.AndroidAdb
 			var results = new List<FilePath>();
 
 			var ext = environment.Platform.IsUnix() ? "" : ".exe";
-			var androidHome = environment.GetEnvironmentVariable("ANDROID_HOME");
+			var androidHome = settings.SdkRoot.MakeAbsolute(environment).FullPath;
+
+			if (!System.IO.Directory.Exists(androidHome))
+				androidHome = environment.GetEnvironmentVariable("ANDROID_HOME");
+			
 			if (!string.IsNullOrEmpty(androidHome) && System.IO.Directory.Exists(androidHome))
 			{
 				var exe = new DirectoryPath(androidHome).Combine("platform-tools").CombineWithFilePath("adb" + ext);
