@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DAE552A3-F16C-4A8C-BABC-635DF880B953}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Cake.AndroidAdb</RootNamespace>
+    <AssemblyName>Cake.Android.Adb</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType></DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Cake.Android.Adb.xml</DocumentationFile>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="Cake.Core">
+      <HintPath>..\packages\Cake.Core.0.17.0\lib\net45\Cake.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Namespaces.cs" />
+    <Compile Include="AdbTool.cs" />
+    <Compile Include="AdbToolSettings.cs" />
+    <Compile Include="AdbTool.ActivityManager.cs" />
+    <Compile Include="AdbTool.PackageManager.cs" />
+    <Compile Include="AdbTool.Commands.cs" />
+    <Compile Include="Aliases\AdbAliases.cs" />
+    <Compile Include="Aliases\PackageManagerAliases.cs" />
+    <Compile Include="Aliases\ActivityManagerAliases.cs" />
+    <Compile Include="Models\AdbDeviceInfo.cs" />
+    <Compile Include="Models\AdbLogcatOptions.cs" />
+    <Compile Include="Models\AmInstrumentOptions.cs" />
+    <Compile Include="Models\AdbPackageListInfo.cs" />
+    <Compile Include="Models\AdbPermissionGroupInfo.cs" />
+    <Compile Include="Models\AmStartOptions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Aliases\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
