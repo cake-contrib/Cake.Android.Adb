@@ -25,8 +25,12 @@ Task ("externals")
 
 	Unzip ("./android-sdk/android-sdk.zip", "./android-sdk/");
 
+	var ext = "";
+	if (IsRunningOnWindows ())
+		ext = ".bat";
+
 	// Install platform-tools so we get adb
-	StartProcess ("./android-sdk/tools/bin/sdkmanager", new ProcessSettings { Arguments = "platform-tools" });
+	StartProcess ("./android-sdk/tools/bin/sdkmanager" + ext, new ProcessSettings { Arguments = "platform-tools" });
 });
 
 Task ("libs").IsDependentOn ("externals").Does (() => 
