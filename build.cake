@@ -1,7 +1,9 @@
+#tool nuget:?package=NUnit.ConsoleRunner&version=3.6.0
+
 var sln = "./Cake.Android.Adb.sln";
 var nuspec = "./Cake.Android.Adb.nuspec";
 
-var target = Argument ("target", "libs");
+var target = Argument ("target", "all");
 
 var NUGET_VERSION = Argument("nugetversion", "0.9999");
 
@@ -46,6 +48,11 @@ Task ("nuget").IsDependentOn ("libs").Does (() =>
 	});	
 });
 
+Task("tests").IsDependentOn("libs").Does(() =>
+{
+	NUnit3("./**/bin/"+ configuration + "/*.Tests.dll");
+});
+
 Task ("clean").Does (() => 
 {
 	CleanDirectories ("./**/bin");
@@ -56,5 +63,7 @@ Task ("clean").Does (() =>
 
 	DeleteFiles ("./**/*.apk");
 });
+
+Task ("all").IsDependentOn("nuget").IsDependentOn ("tests");
 
 RunTarget (target);
