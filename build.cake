@@ -1,4 +1,5 @@
 #tool nuget:?package=NUnit.ConsoleRunner&version=3.6.0
+#addin nuget:?package=Cake.Android.SdkManager
 
 var sln = "./Cake.Android.Adb.sln";
 var nuspec = "./Cake.Android.Adb.nuspec";
@@ -25,12 +26,10 @@ Task ("externals")
 
 	Unzip ("./android-sdk/android-sdk.zip", "./android-sdk/");
 
-	var ext = "";
-	if (IsRunningOnWindows ())
-		ext = ".bat";
-
 	// Install platform-tools so we get adb
-	StartProcess ("./android-sdk/tools/bin/sdkmanager" + ext, new ProcessSettings { Arguments = "platform-tools" });
+	AndroidSdkManagerInstall (new [] { "platform-tools" }, new AndroidSdkManagerToolSettings {
+		SdkRoot = "./android-sdk/", 
+	});
 });
 
 Task ("libs").IsDependentOn ("externals").Does (() => 
