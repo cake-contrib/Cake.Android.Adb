@@ -38,11 +38,9 @@ Task ("libs").Does (() =>
 
 Task ("nuget").IsDependentOn ("libs").Does (() => 
 {
-	CreateDirectory ("./nupkg/");
-
 	NuGetPack (nuspec, new NuGetPackSettings { 
 		Verbosity = NuGetVerbosity.Detailed,
-		OutputDirectory = "./nupkg/",
+		OutputDirectory = "./",
 		Version = NUGET_VERSION,
 		// NuGet messes up path on mac, so let's add ./ in front again
 		BasePath = "././",
@@ -62,6 +60,8 @@ Task ("clean").Does (() =>
 	CleanDirectories ("./**/Components");
 	CleanDirectories ("./**/tools");
 
+	CleanDirectories ("./android-sdk");
+	
 	DeleteFiles ("./**/*.apk");
 });
 
