@@ -4,6 +4,7 @@ var sln = "./Cake.Android.Adb.sln";
 var nuspec = "./Cake.Android.Adb.nuspec";
 
 var target = Argument ("target", "all");
+var configuration = Argument ("configuration", "Release");
 
 var NUGET_VERSION = Argument("nugetversion", "0.9999");
 
@@ -32,7 +33,7 @@ Task ("libs").Does (() =>
 {
 	NuGetRestore (sln);
 
-	DotNetBuild (sln, c => c.Configuration = "Release");
+	DotNetBuild (sln, c => c.Configuration = configuration);
 });
 
 Task ("nuget").IsDependentOn ("libs").Does (() => 
@@ -50,7 +51,7 @@ Task ("nuget").IsDependentOn ("libs").Does (() =>
 
 Task("tests").IsDependentOn("libs").Does(() =>
 {
-	NUnit3("./**/bin/"+ configuration + "/*.Tests.dll");
+	NUnit3("./**/bin/" + configuration + "/*.Tests.dll");
 });
 
 Task ("clean").Does (() => 
