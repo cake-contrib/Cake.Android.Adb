@@ -29,7 +29,7 @@ Task ("externals")
 	StartProcess ("./android-sdk/tools/bin/sdkmanager", new ProcessSettings { Arguments = "platform-tools" });
 });
 
-Task ("libs").Does (() => 
+Task ("libs").IsDependentOn ("externals").Does (() => 
 {
 	NuGetRestore (sln);
 
