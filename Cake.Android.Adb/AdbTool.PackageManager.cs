@@ -352,15 +352,19 @@ namespace Cake.AndroidAdb
 			RunAdb(settings, builder, out output);
 
 			const string rxPackageListInfo = "^package:(?<path>.*?)$";
-			foreach (var line in output)
+		    var outputList = output.Where(m => !string.IsNullOrWhiteSpace(m)).ToList();
+			foreach (var line in outputList)
 			{
 				var m = Regex.Match(line, rxPackageListInfo, RegexOptions.Singleline);
 
 				var path = m?.Groups?["path"]?.Value;
 
-				var fp = new FilePath(path);
+			    if (!string.IsNullOrWhiteSpace(path))
+			    {
+				    var fp = new FilePath(path);
 
-				return fp;
+				    return fp;
+			    }
 			}
 
 			return null;

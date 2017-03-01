@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Cake.AndroidAdb;
 using Cake.AndroidAdb.Fakes;
 using NUnit.Framework;
@@ -8,14 +9,7 @@ namespace Cake.Android.Adb.Tests
 	[TestFixture]
 	public class AdbActivityManagerTests : TestFixtureBase
 	{
-		const string SDK_ROOT = "../../../android-sdk";
-
-		AdbToolSettings GetAdbToolSettings()
-		{
-			return new AdbToolSettings { SdkRoot = SDK_ROOT };
-		}
-
-		[Test]
+	    [Test]
 		public void Test_StartActivity()
 		{
 			var r = Cake.AmStartActivity("-a android.settings.SETTINGS", settings: GetAdbToolSettings());

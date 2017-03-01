@@ -11,9 +11,10 @@ var NUGET_VERSION = Argument("APPVEYOR_BUILD_VERSION", Argument("nugetversion", 
 
 var SDK_URL_BASE = "https://dl.google.com/android/repository/tools_r{0}-{1}.zip";
 var SDK_VERSION = "25.2.3";
+var ANDROID_HOME =  EnvironmentVariable("ANDROID_HOME");
 
 Task ("externals")
-	.WithCriteria (!FileExists ("./android-sdk/android-sdk.zip"))
+	.WithCriteria (!FileExists ("./android-sdk/android-sdk.zip") && string.IsNullOrEmpty(ANDROID_HOME))
 	.Does (() => 
 {
 	var url = string.Format (SDK_URL_BASE, SDK_VERSION, "macosx");

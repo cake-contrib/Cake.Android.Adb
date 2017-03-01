@@ -313,7 +313,7 @@ namespace Cake.AndroidAdb
         
 		    if (!String.IsNullOrWhiteSpace(filter))
 		    {
-		        builder.Append($" {filter}");
+		       builder.Append($"{filter}");
 		    }
 
 
