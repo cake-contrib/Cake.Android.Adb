@@ -63,13 +63,13 @@ namespace Cake.AndroidAdb.Tests
 			Assert.True(packages.Any (p => p.PackageName == "com.android.providers.downloads"));
 		}
 
-		[Test]
-		public void Test_Path_to_Package()
-		{
-			var path = Cake.PmPathToPackage("com.android.providers.downloads", settings: GetAdbToolSettings());
+		//[Test]
+		//public void Test_Path_to_Package()
+		//{
+		//	var path = Cake.PmPathToPackage("com.android.providers.downloads", settings: GetAdbToolSettings());
 
-			Assert.IsNotNull(path);
-			Assert.True(path.FullPath == "/system/priv-app/DownloadProvider/DownloadProvider.apk");
-		}
+		//	Assert.IsNotNull(path);
+		//	Assert.True(path.FullPath == "/system/priv-app/DownloadProvider/DownloadProvider.apk");
+		//}
 	}
 }

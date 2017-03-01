@@ -267,6 +267,7 @@ namespace Cake.AndroidAdb
 				builder.Append(options.BufferType.ToString().ToLowerInvariant());
 			}
 
+
 			if (options.Clear || options.PrintSize)
 			{
 				if (options.Clear)
@@ -308,6 +309,13 @@ namespace Cake.AndroidAdb
 				}
 
 			}
+
+        
+		    if (!String.IsNullOrWhiteSpace(filter))
+		    {
+		        builder.Append($" {filter}");
+		    }
+
 
 			var output = new List<string>();
 			RunAdb(settings, builder, out output);

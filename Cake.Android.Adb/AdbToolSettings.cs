@@ -9,6 +9,7 @@ namespace Cake.AndroidAdb
 	/// </summary>
 	public class AdbToolSettings : ToolSettings
 	{
+	  
 		/// <summary>
 		/// Gets or sets the Android SDK HOME root path to invoke tools from.
 		/// </summary>

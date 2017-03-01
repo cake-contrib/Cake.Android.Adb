@@ -53,7 +53,7 @@ namespace Cake.AndroidAdb.Fakes
 		/// <param name="args">An array of objects to write using format.</param>
 		public void Write(Verbosity verbosity, LogLevel level, string format, params object[] args)
 		{
-			_messages.Add(string.Format(format, args));
+			//_messages.Add(string.Format(format, args));
 		}
 	}
 }
