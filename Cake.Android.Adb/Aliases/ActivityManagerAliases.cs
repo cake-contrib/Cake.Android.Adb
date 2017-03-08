@@ -12,11 +12,7 @@ namespace Cake.AndroidAdb
 	[CakeAliasCategory ("Android")]
 	public static class ActivityManagerAliases
 	{
-		static AdbTool GetAdbTool(ICakeContext context)
-		{
-			return new AdbTool(context, context.FileSystem, context.Environment, context.ProcessRunner, context.Tools);
-		}
-
+		
 		/// <summary>
 		/// Starts an Activity on the target.
 		/// </summary>
@@ -28,7 +24,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static bool AmStartActivity(this ICakeContext context, string adbIntentArguments, AmStartOptions options = null, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.StartActivity(adbIntentArguments, options, settings);
 		}
 
@@ -43,7 +39,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static bool AmStartService(this ICakeContext context, string adbIntentArguments, string runAsUser = null, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.StartService(adbIntentArguments, runAsUser, settings);
 		}
 
@@ -57,7 +53,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void AmForceStop(this ICakeContext context, string packageName, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.ForceStop(packageName, settings);
 		}
 
@@ -72,7 +68,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void AmKill(this ICakeContext context, string packageName, string forUser = null, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.Kill(packageName, forUser, settings);
 		}
 
@@ -85,7 +81,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void AmKillAll(this ICakeContext context, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.KillAll(settings);
 		}
 
@@ -100,7 +96,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static int AmBroadcast(this ICakeContext context, string intent, string toUser = null, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.Broadcast(intent, toUser, settings);
 		}
 
@@ -115,7 +111,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static List<string> AmInstrument(this ICakeContext context, string component, AmInstrumentOptions options = null, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.Instrument(component, options, settings);
 		}
 
@@ -130,7 +126,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static List<string> AmStartProfiling(this ICakeContext context, string process, FilePath outputFile, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.StartProfiling(process, outputFile, settings);
 		}
 
@@ -144,7 +140,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static List<string> AmStopProfiling(this ICakeContext context, string process, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.StopProfiling(process, settings);
 		}
 
@@ -161,7 +157,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static List<string> AmDumpHeap(this ICakeContext context, string process, FilePath outputFile, string forUser = null, bool dumpNativeHeap = false, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.DumpHeap(process, outputFile, forUser, dumpNativeHeap, settings);
 		}
 
@@ -177,7 +173,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static List<string> AmSetDebugApp(this ICakeContext context, string packageName, bool wait = false, bool persistent = false, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.SetDebugApp(packageName, wait, persistent, settings);
 		}
 
@@ -190,7 +186,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static List<string> AmClearDebugApp(this ICakeContext context, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.ClearDebugApp(settings);
 		}
 
@@ -202,10 +198,10 @@ namespace Cake.AndroidAdb
 		/// <param name="gdbPort">Gdb port to start gdbserv on when crash/ANR occurs.</param>
 		/// <param name="settings">Settings.</param>
 		[CakeMethodAlias]
-		public static List<string> AmMonitor(this ICakeContext context, int? gdbPort = null, AdbToolSettings settings = null)
+        public static List<string> AmMonitor(this ICakeContext context, AdbToolSettings settings = null, int gdbPort = 0)
 		{
-			var t = GetAdbTool(context);
-			return t.Monitor(gdbPort, settings);
+			var t = AdbRunnerFactory.GetAdbTool(context);
+            return t.Monitor(gdbPort > 0 ? (int?) gdbPort : null, settings);
 		}
 
 		/// <summary>
@@ -219,7 +215,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static List<string> AmScreenCompat(this ICakeContext context, bool compatOn, string packageName, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.ScreenCompat(compatOn, packageName, settings);
 		}
 
@@ -234,7 +230,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static List<string> AmDisplaySize(this ICakeContext context, int width, int height, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.DisplaySize(width, height, settings);
 		}
 
@@ -247,7 +243,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static List<string> AmResetDisplaySize(this ICakeContext context, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.ResetDisplaySize(settings);
 		}
 
@@ -261,7 +257,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static List<string> AmDisplayDensity(this ICakeContext context, int dpi, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.DisplayDensity(dpi, settings);
 		}
 
@@ -275,7 +271,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static string AmIntentToURI(this ICakeContext context, string intent, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.IntentToURI(intent, settings);
 		}
 
@@ -289,7 +285,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static string AmIntentToIntentURI(this ICakeContext context, string intent, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.IntentToIntentURI(intent, settings);
 		}
 	}

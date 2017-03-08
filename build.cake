@@ -7,7 +7,7 @@ var nuspec = "./Cake.Android.Adb.nuspec";
 var target = Argument ("target", "all");
 var configuration = Argument ("configuration", "Release");
 
-var NUGET_VERSION = Argument("APPVEYOR_BUILD_VERSION", Argument("nugetversion", "0.9999"));
+var NUGET_VERSION = Argument("APPVEYOR_BUILD_VERSION", Argument("nugetversion", "1.0.17"));
 
 var SDK_URL_BASE = "https://dl.google.com/android/repository/tools_r{0}-{1}.zip";
 var SDK_VERSION = "25.2.3";

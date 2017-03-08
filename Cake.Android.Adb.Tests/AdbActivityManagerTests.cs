@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using Cake.AndroidAdb;
 using Cake.AndroidAdb.Fakes;
@@ -12,7 +12,7 @@ namespace Cake.Android.Adb.Tests
 	    [Test]
 		public void Test_StartActivity()
 		{
-			var r = Cake.AmStartActivity("-a android.settings.SETTINGS", settings: GetAdbToolSettings());
+			var r = Cake.AmStartActivity("-a android.settings.SETTINGS", settings: AdbRunnerFactory.GetAdbToolSettings());
 
 			Assert.IsTrue(r);
 		}
@@ -20,7 +20,7 @@ namespace Cake.Android.Adb.Tests
 		[Test]
 		public void Test_StartService()
 		{
-			var r = Cake.AmStartService("-a android.settings.SETTINGS", settings: GetAdbToolSettings());
+			var r = Cake.AmStartService("-a android.settings.SETTINGS", settings: AdbRunnerFactory.GetAdbToolSettings());
 
 			Assert.IsTrue(r);
 		}
@@ -28,13 +28,13 @@ namespace Cake.Android.Adb.Tests
 		[Test]
 		public void Test_ForceStop()
 		{
-			Cake.AmForceStop ("com.android.settings", settings: GetAdbToolSettings());
+			Cake.AmForceStop ("com.android.settings", settings: AdbRunnerFactory.GetAdbToolSettings());
 		}
 
 		[Test]
 		public void Test_Broadcast()
 		{
-			var r = Cake.AmBroadcast("-a android.settings.SETTINGS", settings: GetAdbToolSettings());
+			var r = Cake.AmBroadcast("-a android.settings.SETTINGS", settings: AdbRunnerFactory.GetAdbToolSettings());
 			Assert.IsTrue(r == 0);
 		}
 	}

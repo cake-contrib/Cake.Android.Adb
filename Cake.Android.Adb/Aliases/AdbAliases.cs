@@ -12,11 +12,7 @@ namespace Cake.AndroidAdb
 	[CakeAliasCategory("Android")]
 	public static class AdbAliases
 	{
-		static AdbTool GetAdbTool(ICakeContext context)
-		{
-			return new AdbTool(context, context.FileSystem, context.Environment, context.ProcessRunner, context.Tools);
-		}
-
+		
 		/// <summary>
 		/// Gets a list of all attached emulator/device instances.
 		/// </summary>
@@ -26,7 +22,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static List<AdbDeviceInfo> AdbDevices(this ICakeContext context, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.GetDevices(settings);
 		}
 
@@ -39,7 +35,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static string AdbVersion(this ICakeContext context, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.Version(settings);
 		}
 
@@ -51,7 +47,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void AdbKillServer(this ICakeContext context, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.KillServer(settings);
 		}
 
@@ -63,7 +59,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void AdbStartServer(this ICakeContext context, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.StartServer(settings);
 		}
 
@@ -77,7 +73,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void AdbConnect(this ICakeContext context, string deviceIp, int port = 5555, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.Connect(deviceIp, port, settings);
 		}
 
@@ -91,7 +87,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void AdbDisconnect(this ICakeContext context, string deviceIp = null, int port = 5555, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.Disconnect(deviceIp, port, settings);
 		}
 
@@ -104,7 +100,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void AdbInstall(this ICakeContext context, FilePath apkFile, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.Install(apkFile, settings);
 		}
 
@@ -118,7 +114,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void AdbUninstall(this ICakeContext context, string packageName, bool keepDataAndCacheDirs = false, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.Uninstall(packageName, keepDataAndCacheDirs, settings);
 		}
 
@@ -133,7 +129,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static bool AdbPull(this ICakeContext context, FilePath remoteFileSource, FilePath localFileDestination, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.Pull(remoteFileSource, localFileDestination, settings);
 		}
 
@@ -148,7 +144,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static bool AdbPull(this ICakeContext context, DirectoryPath remoteDirectorySource, DirectoryPath localDirectoryDestination, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.Pull(remoteDirectorySource, localDirectoryDestination, settings);
 		}
 
@@ -163,7 +159,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static bool AdbPull(this ICakeContext context, FilePath remoteFileSource, DirectoryPath localDirectoryDestination, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.Pull(remoteFileSource, localDirectoryDestination, settings);
 		}
 
@@ -178,7 +174,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static bool AdbPush(this ICakeContext context, FilePath localFileSource, FilePath remoteFileDestination, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.Push(localFileSource, remoteFileDestination, settings);
 		}
 
@@ -193,7 +189,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static bool AdbPush(this ICakeContext context, FilePath localFileSource, DirectoryPath remoteDirectoryDestination, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.Push(localFileSource, remoteDirectoryDestination, settings);
 		}
 
@@ -208,7 +204,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static bool AdbPush(this ICakeContext context, DirectoryPath localDirectorySource, DirectoryPath remoteDirectoryDestination, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.Push(localDirectorySource, remoteDirectoryDestination, settings);
 		}
 
@@ -221,7 +217,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static List<string> AdbBugReport(this ICakeContext context, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.BugReport(settings);
 		}
 
@@ -236,7 +232,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static List<string> AdbLogcat(this ICakeContext context, AdbLogcatOptions options = null, string filter = null, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.Logcat(options, filter, settings);
 		}
 
@@ -249,7 +245,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static string AdbGetSerialNumber(this ICakeContext context, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.GetSerialNumber(settings);
 		}
 
@@ -262,7 +258,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static string AdbGetState(this ICakeContext context, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.GetState(settings);
 		}
 
@@ -276,7 +272,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static List<string> AdbShell(this ICakeContext context, string shellCommand, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.Shell(shellCommand, settings);
 		}
 
@@ -289,7 +285,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void AdbScreenCapture(this ICakeContext context, FilePath saveToLocalFile, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.ScreenCapture(saveToLocalFile, settings);
 		}
 
@@ -307,10 +303,11 @@ namespace Cake.AndroidAdb
 		/// <param name="logVerbose">If set to <c>true</c> show verbose log output.</param>
 		/// <param name="settings">Settings.</param>
 		[CakeMethodAlias]
-		public static void AdbScreenRecord(this ICakeContext context, FilePath saveToLocalFile, System.Threading.CancellationToken? recordingCancelToken = null, TimeSpan? timeLimit = null, int? bitrateMbps = null, int? width = null, int? height = null, bool rotate = false, bool logVerbose = false, AdbToolSettings settings = null)
+		public static void AdbScreenRecord(this ICakeContext context, FilePath saveToLocalFile, AdbScreenshotOptions options = null, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
-			t.ScreenRecord(saveToLocalFile, recordingCancelToken, timeLimit, bitrateMbps, width, height, rotate, logVerbose, settings);
+			var t = AdbRunnerFactory.GetAdbTool(context);
+            var o = options ?? new AdbScreenshotOptions();
+			t.ScreenRecord(saveToLocalFile, o.RecordingCancelToken, o.TimeLimit, o.BitrateMbps, o.Width, o.Height, o.Rotate, o.LogVerbose, settings);
 		}
 	}
 }

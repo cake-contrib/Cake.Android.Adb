@@ -12,11 +12,7 @@ namespace Cake.AndroidAdb
 	[CakeAliasCategory ("Android")]
 	public static class PackageManagerAliases
 	{
-		static AdbTool GetAdbTool(ICakeContext context)
-		{
-			return new AdbTool(context, context.FileSystem, context.Environment, context.ProcessRunner, context.Tools);
-		}
-
+		
 		/// <summary>
 		/// Gets a list of packages from the target.
 		/// </summary>
@@ -27,9 +23,9 @@ namespace Cake.AndroidAdb
 		/// <param name="showSource">Show All by default, or choose to show only System or 3rd party packages.</param>
 		/// <param name="settings">Settings.</param>
 		[CakeMethodAlias]
-		public static List<AdbPackageListInfo> PmListPackages(this ICakeContext context, bool includeUninstalled = false, PackageListState showState = PackageListState.All, PackageSourceType showSource = PackageSourceType.All, AdbToolSettings settings = null)
+		public static List<AdbPackageListInfo> PmListPackages(this ICakeContext context, bool includeUninstalled, PackageListState showState, PackageSourceType showSource, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.ListPackages(includeUninstalled, showState, showSource, settings);
 		}
 
@@ -42,7 +38,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static List<string> PmListPermissionGroups(this ICakeContext context, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.ListPermissionGroups(settings);
 		}
 
@@ -57,7 +53,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static List<AdbPermissionGroupInfo> PmListPermissions(this ICakeContext context, bool onlyDangerous = false, bool onlyUserVisible = false, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.ListPermissions(onlyDangerous, onlyUserVisible, settings);
 		}
 
@@ -70,7 +66,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static List<string> PmListFeatures(this ICakeContext context, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.ListFeatures(settings);
 		}
 
@@ -83,7 +79,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static List<string> PmListLibraries(this ICakeContext context, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.ListLibraries(settings);
 		}
 
@@ -97,7 +93,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static FilePath PmPathToPackage(this ICakeContext context, string packageName, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.PathToPackage(packageName, settings);
 		}
 
@@ -128,7 +124,7 @@ namespace Cake.AndroidAdb
 									bool grantAllManifestPermissions = false,
 									AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.Install(pathOnDevice, forwardLock, reinstall, allowTestApks, installerPackageName, installOnSharedStorage, installOnInternalSystemMemory, allowVersionDowngrade, grantAllManifestPermissions, settings);
 		}
 
@@ -142,7 +138,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void PmUninstall(this ICakeContext context, string packageName, bool keepDataAndCache = false, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.Uninstall(packageName, keepDataAndCache, settings);
 		}
 
@@ -155,7 +151,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void PmClear(this ICakeContext context, string packageName, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.Clear(packageName, settings);
 		}
 
@@ -168,7 +164,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void PmEnable(this ICakeContext context, string packageOrComponent, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.Enable(packageOrComponent, settings);
 		}
 
@@ -181,7 +177,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void PmDisable(this ICakeContext context, string packageOrComponent, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.Disable(packageOrComponent, settings);
 		}
 
@@ -195,7 +191,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void PmDisableUser(this ICakeContext context, string packageOrComponent, string forUser = null, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.DisableUser(packageOrComponent, forUser, settings);
 		}
 
@@ -209,7 +205,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void PmGrant(this ICakeContext context, string packageName, string permission, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.Grant(packageName, permission, settings);
 		}
 
@@ -223,7 +219,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void PmRevoke(this ICakeContext context, string packageName, string permission, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.Revoke(packageName, permission, settings);
 		}
 
@@ -236,7 +232,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void PmSetInstallLocation(this ICakeContext context, AdbInstallLocation location, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.SetInstallLocation(location, settings);
 		}
 
@@ -249,7 +245,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static AdbInstallLocation PmGetInstallLocation(this ICakeContext context, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.GetInstallLocation(settings);
 		}
 
@@ -263,7 +259,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void PmSetPermissionEnforced(this ICakeContext context, string permission, bool enforced, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.SetPermissionEnforced(permission, enforced, settings);
 		}
 
@@ -276,7 +272,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void PmTrimCaches(this ICakeContext context, string desiredFreeSpace, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.TrimCaches(desiredFreeSpace, settings);
 		}
 
@@ -289,7 +285,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void PmCreateUser(this ICakeContext context, string userName, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.CreateUser(userName, settings);
 		}
 
@@ -302,7 +298,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static void PmRemoveUser(this ICakeContext context, string userId, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			t.RemoveUser(userId, settings);
 		}
 
@@ -315,7 +311,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static int PmGetMaxUsers(this ICakeContext context, AdbToolSettings settings = null)
 		{
-			var t = GetAdbTool(context);
+			var t = AdbRunnerFactory.GetAdbTool(context);
 			return t.GetMaxUsers(settings);
 		}
 	}

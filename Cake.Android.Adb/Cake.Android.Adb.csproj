@@ -43,14 +43,16 @@
     <Compile Include="AdbTool.PackageManager.cs" />
     <Compile Include="AdbTool.Commands.cs" />
     <Compile Include="Aliases\AdbAliases.cs" />
-    <Compile Include="Aliases\PackageManagerAliases.cs" />
-    <Compile Include="Aliases\ActivityManagerAliases.cs" />
     <Compile Include="Models\AdbDeviceInfo.cs" />
     <Compile Include="Models\AdbLogcatOptions.cs" />
     <Compile Include="Models\AmInstrumentOptions.cs" />
     <Compile Include="Models\AdbPackageListInfo.cs" />
     <Compile Include="Models\AdbPermissionGroupInfo.cs" />
     <Compile Include="Models\AmStartOptions.cs" />
+    <Compile Include="Models\AdbRunnerFactory.cs" />
+    <Compile Include="Models\AdbScreenshotOptions.cs" />
+    <Compile Include="Aliases\ActivityManagerAliases.cs" />
+    <Compile Include="Aliases\PackageManagerAliases.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
