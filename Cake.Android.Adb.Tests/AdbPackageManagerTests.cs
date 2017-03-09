@@ -12,7 +12,7 @@ namespace Cake.AndroidAdb.Tests
 		[Test]
 		public void Test_List_Permissions ()
 		{
-			var permissionGroups = Cake.PmListPermissions(settings: AdbRunnerFactory.GetAdbToolSettings());
+			var permissionGroups = Cake.PmListPermissions(settings: GetAdbToolSettings());
 
 			Assert.IsNotEmpty(permissionGroups);
 
@@ -24,7 +24,7 @@ namespace Cake.AndroidAdb.Tests
 		[Test]
 		public void Test_List_Permission_Groups()
 		{
-			var permissionGroups = Cake.PmListPermissionGroups(settings:AdbRunnerFactory.GetAdbToolSettings ());
+			var permissionGroups = Cake.PmListPermissionGroups(settings:GetAdbToolSettings ());
 
 			Assert.IsNotEmpty(permissionGroups);
 			Assert.True(permissionGroups.Contains("android.permission-group.CAMERA"));
@@ -33,7 +33,7 @@ namespace Cake.AndroidAdb.Tests
 		[Test]
 		public void Test_List_Features()
 		{
-			var features = Cake.PmListFeatures(AdbRunnerFactory.GetAdbToolSettings());
+			var features = Cake.PmListFeatures(GetAdbToolSettings());
 
 			Assert.IsNotEmpty(features);
 			Assert.True(features.Contains("android.hardware.location"));
@@ -42,7 +42,7 @@ namespace Cake.AndroidAdb.Tests
 		[Test]
 		public void Test_List_Libraries()
 		{
-			var libs = Cake.PmListLibraries(AdbRunnerFactory.GetAdbToolSettings());
+			var libs = Cake.PmListLibraries(GetAdbToolSettings());
 
 			Assert.IsNotEmpty(libs);
 			Assert.True(libs.Contains("com.android.location.provider"));
@@ -51,7 +51,7 @@ namespace Cake.AndroidAdb.Tests
 		[Test]
 		public void Test_List_Packages()
 		{
-			var packages = Cake.PmListPackages(settings: AdbRunnerFactory.GetAdbToolSettings());
+			var packages = Cake.PmListPackages(false, PackageListState.All, PackageSourceType.All, GetAdbToolSettings());
 
 			Assert.IsNotEmpty(packages);
 			Assert.True(packages.Any (p => p.PackageName == "com.android.providers.downloads"));
@@ -60,7 +60,7 @@ namespace Cake.AndroidAdb.Tests
         [Test]
         public void Test_Path_to_Package()
         {
-            var path = Cake.PmPathToPackage("com.android.providers.downloads", settings: AdbRunnerFactory.GetAdbToolSettings());
+            var path = Cake.PmPathToPackage("com.android.providers.downloads", settings: GetAdbToolSettings());
 
             Assert.IsNotNull(path);
             Assert.True(path.FullPath == "/system/priv-app/DownloadProvider/DownloadProvider.apk");

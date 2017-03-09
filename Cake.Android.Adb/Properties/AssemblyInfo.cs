@@ -12,7 +12,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyCopyright ("redth")]
 [assembly: AssemblyTrademark ("")]
 [assembly: AssemblyCulture ("")]
-
+[assembly:InternalsVisibleTo("Cake.Android.Adb.Tests", AllInternalsVisible = true)]
 // The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
 // The form "{Major}.{Minor}.*" will automatically update the build and revision,
 // and "{Major}.{Minor}.{Build}.*" will update just the revision.

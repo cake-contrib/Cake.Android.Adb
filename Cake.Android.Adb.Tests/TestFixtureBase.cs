@@ -47,7 +47,7 @@ namespace Cake.AndroidAdb.Fakes
 			//context.DumpLogs();
 		}
 
-	    protected AdbToolSettings AdbRunnerFactory.GetAdbToolSettings()
+	    protected AdbToolSettings GetAdbToolSettings()
 		{
 		    return Directory.Exists(ANDROID_HOME) ? new AdbToolSettings { SdkRoot = ANDROID_HOME } : new AdbToolSettings { SdkRoot = SDK_ROOT };
 		}
