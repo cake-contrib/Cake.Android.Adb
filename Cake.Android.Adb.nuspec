@@ -17,12 +17,11 @@
       <tags>Cake Script Build</tags>
 
       <dependencies>
-         <dependency id="Cake.Core" version="0.17.0" />
       </dependencies>
    </metadata>
 
    <files>
-      <file src="./Cake.Android.Adb/bin/Release/Cake.Android.Adb.dll" target="lib/net45" />
-      <file src="./Cake.Android.Adb/bin/Release/Cake.Android.Adb.xml" target="lib/net45" />
+      <file src="Cake.Android.Adb/bin/Release/Cake.Android.Adb.dll" target="lib/net45" />
+      <file src="Cake.Android.Adb/bin/Release/Cake.Android.Adb.xml" target="lib/net45" />
    </files>
 </package>
