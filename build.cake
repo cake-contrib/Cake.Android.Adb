@@ -8,7 +8,7 @@ var target = Argument ("target", "all");
 var configuration = Argument ("configuration", "Release");
 
 var NUGET_VERSION = Argument("APPVEYOR_BUILD_VERSION", Argument("nugetversion", "1.0.18"));
-
+var isRunningOnWindows = IsRunningOnWindows();
 var SDK_URL_BASE = "https://dl.google.com/android/repository/tools_r{0}-{1}.zip";
 var SDK_VERSION = "25.2.3";
 var ANDROID_HOME =  EnvironmentVariable("ANDROID_HOME");
@@ -51,7 +51,10 @@ Task ("nuget").IsDependentOn ("libs").Does (() =>
 	});	
 });
 
-Task("tests").IsDependentOn("libs").Does(() =>
+Task("tests")
+.IsDependentOn("libs")
+.WithCriteria(() => !isRunningOnWindows)
+.Does(() =>
 {
 	NUnit3("./**/bin/" + configuration + "/*.Tests.dll");
 });
