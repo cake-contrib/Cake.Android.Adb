@@ -76,15 +76,21 @@ namespace Cake.AndroidAdb
 
 		bool RunAdb(AdbToolSettings settings, ProcessArgumentBuilder builder, System.Threading.CancellationToken cancelToken, out List<string> output)
 		{
-			var p = RunProcess(settings, builder, new ProcessSettings
+			return RunAdb(settings, builder, new ProcessSettings
 			{
 				RedirectStandardOutput = true,
-			});
+			}, System.Threading.CancellationToken.None, out output);
+		}
+
+		bool RunAdb(AdbToolSettings settings, ProcessArgumentBuilder builder, ProcessSettings processSettings, System.Threading.CancellationToken cancelToken, out List<string> output)
+		{
+            var p = RunProcess(settings, builder, processSettings);
 
 
 			if (cancelToken != System.Threading.CancellationToken.None)
 			{
-				cancelToken.Register(() => {
+				cancelToken.Register(() =>
+				{
 					try { p.Kill(); }
 					catch { }
 				});
@@ -96,8 +102,10 @@ namespace Cake.AndroidAdb
 			// Log out the lines anyway
 			foreach (var line in output)
 				context.Log.Write(Core.Diagnostics.Verbosity.Verbose, Core.Diagnostics.LogLevel.Information, line);
-			
+
 			return p.GetExitCode() == 0;
 		}
+
+		
 	}
 }

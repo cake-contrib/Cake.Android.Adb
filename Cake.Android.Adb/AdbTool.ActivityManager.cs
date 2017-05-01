@@ -57,9 +57,12 @@ namespace Cake.AndroidAdb
 			builder.Append(adbIntentArguments);
 
 			var output = new List<string>();
-			RunAdb(settings, builder, out output);
+			RunAdb(settings, builder, new ProcessSettings
+            {
+                RedirectStandardOutput = false,
+            }, System.Threading.CancellationToken.None, out output);
 
-			return output.Any(l => l.StartsWith("Starting:", StringComparison.OrdinalIgnoreCase));
+            return true; //output.Any(l => l.StartsWith("Starting:", StringComparison.OrdinalIgnoreCase));
 		}
 
 		public bool StartService(string adbIntentArguments, string runAsUser = null, AdbToolSettings settings = null)

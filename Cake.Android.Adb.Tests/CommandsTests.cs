@@ -4,6 +4,7 @@ using Cake.AndroidAdb.Fakes;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Cake.AndroidAdb.Tests
 {
@@ -38,11 +39,12 @@ namespace Cake.AndroidAdb.Tests
         }
 
         [Test]
-        public void Test_Logcat_filter_is_applied_to_output_and_can_parse_tests()
+        public async Task Test_Logcat_filter_is_applied_to_output_and_can_parse_tests()
         {
             var packageId = "com.bluechilli.chillisource.mobile.tests";
-			Cake.AdbShell(string.Format("am start -n {0}/{1} -c android.intent.category.LAUNCHER", packageId, "com.xunit.runneractivity"), GetAdbToolSettings());
-            var logs = Cake.AdbLogcat(new AdbLogcatOptions(), "mono-stdout:I *:S", GetAdbToolSettings());
+			Cake.AmStartActivity(string.Format("-n {0}/{1}", packageId, "com.xunit.runneractivity"), settings: GetAdbToolSettings());
+			await Task.Delay(60 * 1000);
+			var logs = Cake.AdbLogcat(new AdbLogcatOptions(), "mono-stdout:I *:S", GetAdbToolSettings());
             var results = GetTestResultsFromLogs(logs);
             Assert.IsTrue(logs.Any(m => m.Contains("I mono-stdout")));
             Assert.AreEqual(3, results.Passed);
