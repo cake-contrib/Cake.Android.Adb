@@ -12,7 +12,7 @@ CAKE_EXE=$TOOLS_DIR/Cake/Cake.exe
 
 # Define default arguments.
 SCRIPT="build.cake"
-TARGET="Default"
+TARGET="all"
 CONFIGURATION="Release"
 VERBOSITY="verbose"
 DRYRUN=
