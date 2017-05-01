@@ -30,10 +30,10 @@
       <HintPath>..\packages\NUnit.3.6.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Cake.Core">
-      <HintPath>..\packages\Cake.Core.0.17.0\lib\net45\Cake.Core.dll</HintPath>
+      <HintPath>..\packages\Cake.Core.0.19.4\lib\net45\Cake.Core.dll</HintPath>
     </Reference>
     <Reference Include="Cake.Testing">
-      <HintPath>..\packages\Cake.Testing.0.17.1\lib\net45\Cake.Testing.dll</HintPath>
+      <HintPath>..\packages\Cake.Testing.0.19.4\lib\net45\Cake.Testing.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -44,15 +44,16 @@
     <Compile Include="Fakes\FakeCakeContext.cs" />
     <Compile Include="Fakes\FakeCakeLog.cs" />
     <Compile Include="AdbActivityManagerTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cake.Android.Adb\Cake.Android.Adb.csproj">
       <Project>{DAE552A3-F16C-4A8C-BABC-635DF880B953}</Project>
       <Name>Cake.Android.Adb</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

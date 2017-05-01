@@ -8,7 +8,7 @@ using Cake.Core.Tooling;
 
 namespace Cake.AndroidAdb
 {
-	partial class AdbTool : Tool<AdbToolSettings>
+	public partial class AdbTool : Tool<AdbToolSettings>
 	{
 		public AdbTool(ICakeContext cakeContext, IFileSystem cakeFileSystem, ICakeEnvironment cakeEnvironment, IProcessRunner processRunner, IToolLocator toolLocator)
 			: base(cakeFileSystem, cakeEnvironment, processRunner, toolLocator)
