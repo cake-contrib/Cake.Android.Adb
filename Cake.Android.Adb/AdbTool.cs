@@ -76,6 +76,10 @@ namespace Cake.AndroidAdb
 
 		bool RunAdb(AdbToolSettings settings, ProcessArgumentBuilder builder, System.Threading.CancellationToken cancelToken, out List<string> output)
 		{
+			var adbToolPath = this.GetToolPath(settings);
+			if (!context.FileSystem.Exist(adbToolPath))
+				throw new System.IO.FileNotFoundException("Could not find adb", settings.ToolPath.FullPath);
+
 			var p = RunProcess(settings, builder, new ProcessSettings
 			{
 				RedirectStandardOutput = true,
@@ -95,7 +99,12 @@ namespace Cake.AndroidAdb
 
 			// Log out the lines anyway
 			foreach (var line in output)
-				context.Log.Write(Core.Diagnostics.Verbosity.Verbose, Core.Diagnostics.LogLevel.Information, line);
+				context.Log.Write(Core.Diagnostics.Verbosity.Verbose, Core.Diagnostics.LogLevel.Information, line.Replace("{", "{{").Replace("}", "}}"));
+
+			var error = output?.FirstOrDefault(o => o.StartsWith("error:", StringComparison.OrdinalIgnoreCase));
+
+			if (!string.IsNullOrEmpty(error))
+				throw new Exception(error);
 			
 			return p.GetExitCode() == 0;
 		}
