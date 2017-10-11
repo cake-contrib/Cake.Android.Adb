@@ -1,5 +1,5 @@
-#tool nuget:?package=NUnit.ConsoleRunner&version=3.6.0
-#addin nuget:?package=Cake.Android.SdkManager
+#tool nuget:?package=NUnit.ConsoleRunner&version=3.8.1
+#addin nuget:?package=Cake.Android.SdkManager&version=2.0.1
 
 var sln = "./Cake.Android.Adb.sln";
 var nuspec = "./Cake.Android.Adb.nuspec";
