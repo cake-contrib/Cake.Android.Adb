@@ -32,7 +32,7 @@ Task ("externals")
 	});
 });
 
-Task ("libs").IsDependentOn ("externals").Does (() => 
+Task ("libs").Does (() => 
 {
 	NuGetRestore (sln);
 
