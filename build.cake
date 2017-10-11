@@ -10,7 +10,7 @@ var configuration = Argument ("configuration", "Release");
 var NUGET_VERSION = Argument("APPVEYOR_BUILD_VERSION", Argument("nugetversion", "0.9999"));
 
 var SDK_URL_BASE = "https://dl.google.com/android/repository/tools_r{0}-{1}.zip";
-var SDK_VERSION = "25.2.3";
+var SDK_VERSION = "25.2.5";
 
 Task ("externals")
 	.WithCriteria (!FileExists ("./android-sdk/android-sdk.zip"))
