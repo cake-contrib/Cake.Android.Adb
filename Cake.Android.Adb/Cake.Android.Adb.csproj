@@ -51,6 +51,7 @@
     <Compile Include="Models\AdbPackageListInfo.cs" />
     <Compile Include="Models\AdbPermissionGroupInfo.cs" />
     <Compile Include="Models\AmStartOptions.cs" />
+    <Compile Include="AdbNetworkClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Aliases\" />

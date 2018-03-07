@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cake.Core;
 using Cake.Core.Annotations;
 using Cake.Core.IO;
@@ -311,6 +312,40 @@ namespace Cake.AndroidAdb
 		{
 			var t = GetAdbTool(context);
 			t.ScreenRecord(saveToLocalFile, recordingCancelToken, timeLimit, bitrateMbps, width, height, rotate, logVerbose, settings);
+		}
+
+		/// <summary>
+		/// Connects to an emulator and queries its avd name
+		/// </summary>
+		/// <returns>AVD name of the emulator.</returns>
+		/// <param name="context">Context.</param>
+		/// <param name="emulatorSerial">Emulator serial to get AVD name of.  Must be in the format 'emulator-5554'.</param>
+		[CakeMethodAlias]
+		public static string AdbGetAvdName(this ICakeContext context, string emulatorSerial)
+		{
+			return AdbNetworkClient.GetAvdName (emulatorSerial);
+		}
+
+		/// <summary>
+		/// Waits for an emulator to boot (dev.bootcomplete=1)
+		/// </summary>
+		/// <returns><c>true</c>, if emulator booted, <c>false</c> otherwise.</returns>
+		/// <param name="context">Context.</param>
+		/// <param name="timeout">Timeout.</param>
+		/// <param name="settings">Settings.</param>
+		[CakeMethodAlias]
+		public static bool AdbWaitForEmulatorToBoot(this ICakeContext context, TimeSpan timeout, AdbToolSettings settings = null)
+		{
+			var booted = false;
+			for (int i = 0; i < timeout.TotalSeconds; i++) {
+				if (AdbShell (context, "getprop dev.bootcomplete", settings).Any (l => l.Contains ("1"))) {
+					booted = true;
+					break;
+				} else {
+					System.Threading.Thread.Sleep (1000);
+				}
+			}
+			return booted;
 		}
 	}
 }
