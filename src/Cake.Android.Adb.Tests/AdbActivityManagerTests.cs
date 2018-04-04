@@ -1,11 +1,10 @@
 ﻿using System;
 using Cake.AndroidAdb;
 using Cake.AndroidAdb.Fakes;
-using NUnit.Framework;
+using Xunit;
 
 namespace Cake.Android.Adb.Tests
 {
-	[TestFixture]
 	public class AdbActivityManagerTests : TestFixtureBase
 	{
 		const string SDK_ROOT = "../../../android-sdk";
@@ -15,33 +14,33 @@ namespace Cake.Android.Adb.Tests
 			return new AdbToolSettings { SdkRoot = SDK_ROOT };
 		}
 
-		[Test]
+		[Fact]
 		public void Test_StartActivity()
 		{
 			var r = Cake.AmStartActivity("-a android.settings.SETTINGS", settings: GetAdbToolSettings());
 
-			Assert.IsTrue(r);
+			Assert.True(r);
 		}
 
-		[Test]
+		[Fact]
 		public void Test_StartService()
 		{
 			var r = Cake.AmStartService("-a android.settings.SETTINGS", settings: GetAdbToolSettings());
 
-			Assert.IsTrue(r);
+			Assert.True(r);
 		}
 
-		[Test]
+		[Fact]
 		public void Test_ForceStop()
 		{
 			Cake.AmForceStop ("com.android.settings", settings: GetAdbToolSettings());
 		}
 
-		[Test]
+		[Fact]
 		public void Test_Broadcast()
 		{
 			var r = Cake.AmBroadcast("-a android.settings.SETTINGS", settings: GetAdbToolSettings());
-			Assert.IsTrue(r == 0);
+			Assert.True(r == 0);
 		}
 	}
 }

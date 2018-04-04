@@ -5,39 +5,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NUnit.Framework;
+using Xunit;
 
 namespace Cake.AndroidAdb.Fakes
 {
-	[TestFixture]
-	public abstract class TestFixtureBase
+    public abstract class TestFixtureBase : IDisposable
 	{
 		FakeCakeContext context;
 
 		public ICakeContext Cake { get { return context.CakeContext; } }
 
-		[OneTimeSetUp]
-		public void RunBeforeAnyTests()
+		public TestFixtureBase()
 		{
 			Environment.CurrentDirectory = System.IO.Path.GetDirectoryName(typeof(TestFixtureBase).Assembly.Location);
+            context = new FakeCakeContext();
 		}
 
-		[SetUp]
-		public void Setup ()
-		{
-			context = new FakeCakeContext();
-
-			//var dp = new DirectoryPath("./testdata");
-			//var d = context.CakeContext.FileSystem.GetDirectory(dp);
-
-			//if (d.Exists)
-			//	d.Delete(true);
-
-			//d.Create();
-		}
-
-		[TearDown]
-		public void Teardown()
+		public void Dispose()
 		{
 			//context.DumpLogs();
 		}
