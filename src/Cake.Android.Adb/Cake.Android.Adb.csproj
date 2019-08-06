@@ -15,15 +15,11 @@
     <summary>Cake build aliases for Android's ADB (Android Debug Bridge).</summary>
     <PackageLicenseUrl>https://raw.githubusercontent.com/Redth/Cake.Android.Adb/master/LICENSE.md</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Redth/Cake.Android.Adb</PackageProjectUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/Redth/Cake.Android.Adb/master/icon.png</PackageIconUrl>
+    <PackageIconUrl>https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/cake-contrib-medium.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Cake.Core" Version="0.33.0" />
-    <PackageReference Include="Cake.Common" Version="0.33.0" />
-  </ItemGroup>
- 
-  <ItemGroup>
-    <Compile Remove="Properties\AssemblyInfo.cs" />
+    <PackageReference Include="Cake.Core" Version="0.33.0" PrivateAssets="All" />
+    <PackageReference Include="Cake.Common" Version="0.33.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>
