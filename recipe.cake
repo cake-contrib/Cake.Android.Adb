@@ -15,7 +15,8 @@ BuildParameters.SetParameters(context: Context,
                             shouldRunCodecov: false,
                             shouldPostToSlack: false,
                             shouldRunIntegrationTests: false,
-                            testFilePattern: "DO_NOT_RUN_TESTS");
+                            testFilePattern: "DO_NOT_RUN_TESTS",
+                            shouldRunGitVersion: true);
 
 BuildParameters.PrintParameters(Context);
 
