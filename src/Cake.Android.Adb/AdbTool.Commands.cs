@@ -140,7 +140,46 @@ namespace Cake.AndroidAdb
 			Run(settings, builder);
 		}
 
-		public void Uninstall(string packageName, bool keepDataAndCacheDirs = false, AdbToolSettings settings = null)
+        public void WaitFor(AdbTransport transport = AdbTransport.Any, AdbState state = AdbState.Device, AdbToolSettings settings = null)
+        {
+            if (settings == null)
+                settings = new AdbToolSettings();
+
+            // adb wait-for[-<transport>]-<state>
+            //  transport: usb, local, or any (default)
+            //  state: device, recovery, sideload, bootloader
+            var builder = new ProcessArgumentBuilder();
+
+            AddSerial(settings.Serial, builder);
+
+            var x = "wait-for";
+            if (transport == AdbTransport.Local)
+                x = "-local";
+            else if (transport == AdbTransport.Usb)
+                x = "-usb";
+
+            switch (state)
+            {
+                case AdbState.Bootloader:
+                    x += "-bootloader";
+                    break;
+                case AdbState.Device:
+                    x += "-device";
+                    break;
+                case AdbState.Recovery:
+                    x += "-recovery";
+                    break;
+                case AdbState.Sideload:
+                    x += "-sideload";
+                    break;
+            }
+
+            builder.Append(x);
+
+            Run(settings, builder);
+        }
+
+        public void Uninstall(string packageName, bool keepDataAndCacheDirs = false, AdbToolSettings settings = null)
 		{
 			if (settings == null)
 				settings = new AdbToolSettings();

@@ -347,5 +347,18 @@ namespace Cake.AndroidAdb
 			}
 			return booted;
 		}
+
+        /// <summary>
+        /// Waits for a given transport and state
+        /// </summary>
+        /// <param name="context">Context.</param>
+        /// <param name="transport">Transport.</param>
+        /// <param name="state">State.</param>
+        [CakeMethodAlias]
+        public static void AdbWaitFor(this ICakeContext context, AdbTransport transport = AdbTransport.Any, AdbState state = AdbState.Device)
+        {
+            var t = GetAdbTool(context);
+            t.WaitFor(transport, state);
+        }
 	}
 }
