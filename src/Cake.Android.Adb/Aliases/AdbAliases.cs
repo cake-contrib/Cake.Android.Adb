@@ -323,7 +323,7 @@ namespace Cake.AndroidAdb
 		[CakeMethodAlias]
 		public static string AdbGetAvdName(this ICakeContext context, string emulatorSerial)
 		{
-			return AdbNetworkClient.GetAvdName (emulatorSerial);
+			return AdbNetworkClient.GetAvdName(emulatorSerial);
 		}
 
 		/// <summary>
@@ -337,28 +337,32 @@ namespace Cake.AndroidAdb
 		public static bool AdbWaitForEmulatorToBoot(this ICakeContext context, TimeSpan timeout, AdbToolSettings settings = null)
 		{
 			var booted = false;
-			for (int i = 0; i < timeout.TotalSeconds; i++) {
-				if (AdbShell (context, "getprop dev.bootcomplete", settings).Any (l => l.Contains ("1"))) {
+			for (int i = 0; i < timeout.TotalSeconds; i++)
+			{
+				if (AdbShell(context, "getprop dev.bootcomplete", settings).Any(l => l.Contains("1")))
+				{
 					booted = true;
 					break;
-				} else {
-					System.Threading.Thread.Sleep (1000);
+				}
+				else
+				{
+					System.Threading.Thread.Sleep(1000);
 				}
 			}
 			return booted;
 		}
 
-        /// <summary>
-        /// Waits for a given transport and state
-        /// </summary>
-        /// <param name="context">Context.</param>
-        /// <param name="transport">Transport.</param>
-        /// <param name="state">State.</param>
-        [CakeMethodAlias]
-        public static void AdbWaitFor(this ICakeContext context, AdbTransport transport = AdbTransport.Any, AdbState state = AdbState.Device)
-        {
-            var t = GetAdbTool(context);
-            t.WaitFor(transport, state);
-        }
+		/// <summary>
+		/// Waits for a given transport and state
+		/// </summary>
+		/// <param name="context">Context.</param>
+		/// <param name="transport">Transport.</param>
+		/// <param name="state">State.</param>
+		[CakeMethodAlias]
+		public static void AdbWaitFor(this ICakeContext context, AdbTransport transport = AdbTransport.Any, AdbState state = AdbState.Device)
+		{
+			var t = GetAdbTool(context);
+			t.WaitFor(transport, state);
+		}
 	}
 }

@@ -17,7 +17,7 @@ namespace Cake.AndroidAdb.Fakes
 		{
 			testsDir = new DirectoryPath(
 				System.IO.Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory));
-			
+
 			var fileSystem = new FileSystem();
 			var environment = new CakeEnvironment(new CakePlatform(), new CakeRuntime(), log);
 			var globber = new Globber(fileSystem, environment);
@@ -28,9 +28,9 @@ namespace Cake.AndroidAdb.Fakes
 			var config = new Core.Configuration.CakeConfigurationProvider(fileSystem, environment).CreateConfiguration(testsDir, new Dictionary<string, string>());
 			var toolResolutionStrategy = new ToolResolutionStrategy(fileSystem, environment, globber, config);
 			var toolLocator = new ToolLocator(environment, toolRepo, toolResolutionStrategy);
-            var processRunner = new ProcessRunner(fileSystem, environment, log, toolLocator, config);
-            var dataService = new FakeCakeDataService();
-            context = new CakeContext(fileSystem, environment, globber, log, args, processRunner, registry, toolLocator, dataService, config);
+			var processRunner = new ProcessRunner(fileSystem, environment, log, toolLocator, config);
+			var dataService = new FakeCakeDataService();
+			context = new CakeContext(fileSystem, environment, globber, log, args, processRunner, registry, toolLocator, dataService, config);
 			context.Environment.WorkingDirectory = testsDir;
 		}
 

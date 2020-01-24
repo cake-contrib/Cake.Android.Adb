@@ -39,30 +39,37 @@ namespace Cake.AndroidAdb
 					Serial = parts[0].Trim()
 				};
 
-				foreach (var part in parts.Skip(1))
-				{
-					var bits = part.Split(new[] { ':' }, 2);
-					if (bits == null || bits.Length != 2)
-						continue;
+				if (parts.Length > 1 && (parts[1]?.ToLowerInvariant() ?? "offline") == "offline")
+					continue;
 
-					switch (bits[0].ToLower())
+				if (parts.Length > 2)
+				{
+					foreach (var part in parts.Skip(2))
 					{
-						case "usb":
-							d.Usb = bits[1];
-							break;
-						case "product":
-							d.Product = bits[1];
-							break;
-						case "model":
-							d.Model = bits[1];
-							break;
-						case "device":
-							d.Device = bits[1];
-							break;
+						var bits = part.Split(new[] { ':' }, 2);
+						if (bits == null || bits.Length != 2)
+							continue;
+
+						switch (bits[0].ToLower())
+						{
+							case "usb":
+								d.Usb = bits[1];
+								break;
+							case "product":
+								d.Product = bits[1];
+								break;
+							case "model":
+								d.Model = bits[1];
+								break;
+							case "device":
+								d.Device = bits[1];
+								break;
+						}
 					}
 				}
 
-				devices.Add(d);
+				if (!string.IsNullOrEmpty(d?.Serial))
+					devices.Add(d);
 			}
 
 			return devices;
@@ -140,46 +147,46 @@ namespace Cake.AndroidAdb
 			Run(settings, builder);
 		}
 
-        public void WaitFor(AdbTransport transport = AdbTransport.Any, AdbState state = AdbState.Device, AdbToolSettings settings = null)
-        {
-            if (settings == null)
-                settings = new AdbToolSettings();
+		public void WaitFor(AdbTransport transport = AdbTransport.Any, AdbState state = AdbState.Device, AdbToolSettings settings = null)
+		{
+			if (settings == null)
+				settings = new AdbToolSettings();
 
-            // adb wait-for[-<transport>]-<state>
-            //  transport: usb, local, or any (default)
-            //  state: device, recovery, sideload, bootloader
-            var builder = new ProcessArgumentBuilder();
+			// adb wait-for[-<transport>]-<state>
+			//  transport: usb, local, or any (default)
+			//  state: device, recovery, sideload, bootloader
+			var builder = new ProcessArgumentBuilder();
 
-            AddSerial(settings.Serial, builder);
+			AddSerial(settings.Serial, builder);
 
-            var x = "wait-for";
-            if (transport == AdbTransport.Local)
-                x = "-local";
-            else if (transport == AdbTransport.Usb)
-                x = "-usb";
+			var x = "wait-for";
+			if (transport == AdbTransport.Local)
+				x = "-local";
+			else if (transport == AdbTransport.Usb)
+				x = "-usb";
 
-            switch (state)
-            {
-                case AdbState.Bootloader:
-                    x += "-bootloader";
-                    break;
-                case AdbState.Device:
-                    x += "-device";
-                    break;
-                case AdbState.Recovery:
-                    x += "-recovery";
-                    break;
-                case AdbState.Sideload:
-                    x += "-sideload";
-                    break;
-            }
+			switch (state)
+			{
+				case AdbState.Bootloader:
+					x += "-bootloader";
+					break;
+				case AdbState.Device:
+					x += "-device";
+					break;
+				case AdbState.Recovery:
+					x += "-recovery";
+					break;
+				case AdbState.Sideload:
+					x += "-sideload";
+					break;
+			}
 
-            builder.Append(x);
+			builder.Append(x);
 
-            Run(settings, builder);
-        }
+			Run(settings, builder);
+		}
 
-        public void Uninstall(string packageName, bool keepDataAndCacheDirs = false, AdbToolSettings settings = null)
+		public void Uninstall(string packageName, bool keepDataAndCacheDirs = false, AdbToolSettings settings = null)
 		{
 			if (settings == null)
 				settings = new AdbToolSettings();

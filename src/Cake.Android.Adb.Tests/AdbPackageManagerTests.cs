@@ -14,21 +14,21 @@ namespace Cake.AndroidAdb.Tests
 		}
 
 		[Fact]
-		public void Test_List_Permissions ()
+		public void Test_List_Permissions()
 		{
 			var permissionGroups = Cake.PmListPermissions(settings: GetAdbToolSettings());
 
 			Assert.NotEmpty(permissionGroups);
 
-			Assert.True(permissionGroups.Any(pg => pg.Group == "android.permission-group.CAMERA" 
-			                                 && pg.Permissions.Any(p => p.Permission == "android.permission.CAMERA")));
+			Assert.True(permissionGroups.Any(pg => pg.Group == "android.permission-group.CAMERA"
+											 && pg.Permissions.Any(p => p.Permission == "android.permission.CAMERA")));
 		}
 
 
 		[Fact]
 		public void Test_List_Permission_Groups()
 		{
-			var permissionGroups = Cake.PmListPermissionGroups(settings:GetAdbToolSettings ());
+			var permissionGroups = Cake.PmListPermissionGroups(settings: GetAdbToolSettings());
 
 			Assert.NotEmpty(permissionGroups);
 			Assert.True(permissionGroups.Contains("android.permission-group.CAMERA"));
@@ -58,7 +58,7 @@ namespace Cake.AndroidAdb.Tests
 			var packages = Cake.PmListPackages(settings: GetAdbToolSettings());
 
 			Assert.NotEmpty(packages);
-			Assert.True(packages.Any (p => p.PackageName == "com.android.providers.downloads"));
+			Assert.True(packages.Any(p => p.PackageName == "com.android.providers.downloads"));
 		}
 
 		[Fact]
