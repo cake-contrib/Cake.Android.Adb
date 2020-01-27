@@ -222,7 +222,7 @@ namespace Cake.AndroidAdb
 			var output = new List<string>();
 			RunAdb(settings, builder, out output);
 
-			return output != null && output.Any(o => o.ToLowerInvariant().Contains("stopping emulator")));
+			return output != null && output.Any(o => o.ToLowerInvariant().Contains("stopping emulator"));
 		}
 
 		public List<string> Run(string[] args, AdbToolSettings settings = null)
