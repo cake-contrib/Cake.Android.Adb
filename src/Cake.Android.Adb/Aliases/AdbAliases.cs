@@ -358,11 +358,37 @@ namespace Cake.AndroidAdb
 		/// <param name="context">Context.</param>
 		/// <param name="transport">Transport.</param>
 		/// <param name="state">State.</param>
+		/// <param name="settings">Settings.</param>
 		[CakeMethodAlias]
-		public static void AdbWaitFor(this ICakeContext context, AdbTransport transport = AdbTransport.Any, AdbState state = AdbState.Device)
+		public static void AdbWaitFor(this ICakeContext context, AdbTransport transport = AdbTransport.Any, AdbState state = AdbState.Device, AdbToolSettings settings = null)
 		{
 			var t = GetAdbTool(context);
-			t.WaitFor(transport, state);
+			t.WaitFor(transport, state, settings);
+		}
+
+		/// <summary>
+		/// Runs adb with an arbitrary list of arguments
+		/// </summary>
+		/// <param name="context">Context.</param>
+		/// <param name="args">Arguments to pass adb.</param>
+		/// <param name="settings">Settings.</param>
+		[CakeMethodAlias]
+		public static List<string> AdbRun(this ICakeContext context, string[] args, AdbToolSettings settings = null)
+		{
+			var t = GetAdbTool(context);
+			return t.Run(args, settings);
+		}
+
+		/// <summary>
+		/// Kills an emulator by serial
+		/// </summary>
+		/// <param name="context">Context.</param>
+		/// <param name="settings">Settings.</param>
+		[CakeMethodAlias]
+		public static bool AdbEmuKill(this ICakeContext context, AdbToolSettings settings = null)
+		{
+			var t = GetAdbTool(context);
+			return t.EmuKill(settings);
 		}
 	}
 }

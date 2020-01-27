@@ -205,6 +205,47 @@ namespace Cake.AndroidAdb
 			Run(settings, builder);
 		}
 
+		public bool EmuKill(AdbToolSettings settings = null)
+		{
+			if (settings == null)
+				settings = new AdbToolSettings();
+
+			// adb uninstall -k <package>
+			// -k keeps data & cache dir
+			var builder = new ProcessArgumentBuilder();
+
+			AddSerial(settings.Serial, builder);
+
+			builder.Append("emu");
+			builder.Append("kill");
+
+			var output = new List<string>();
+			RunAdb(settings, builder, out output);
+
+			return output != null && output.Any(o => o.ToLowerInvariant().Contains("stopping emulator")));
+		}
+
+		public List<string> Run(string[] args, AdbToolSettings settings = null)
+		{
+			if (settings == null)
+				settings = new AdbToolSettings();
+
+			var builder = new ProcessArgumentBuilder();
+
+			AddSerial(settings.Serial, builder);
+
+			if (args != null && args.Length > 0)
+			{
+				foreach (var a in args)
+					builder.Append(a);
+			}
+
+			var output = new List<string>();
+			RunAdb(settings, builder, out output);
+
+			return output;
+		}
+
 		public bool Pull(FilePath remoteFileSource, FilePath localFileDestination, AdbToolSettings settings = null)
 		{
 			return pull(settings, remoteFileSource.MakeAbsolute(environment).FullPath, localFileDestination.MakeAbsolute(environment).FullPath);
