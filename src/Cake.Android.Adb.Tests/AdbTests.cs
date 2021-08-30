@@ -12,9 +12,6 @@ namespace Cake.AndroidAdb.Tests
 			=> Environment.GetEnvironmentVariable("ANDROID_HOME")
 				?? File.ReadAllText(System.IO.Path.Combine(ContentPath, "android_home.txt"))?.Trim();
 
-		static AdbToolSettings Settings
-			=> new AdbToolSettings { SdkRoot = ANDROID_SDK_ROOT };
-
 		AdbToolSettings GetAdbToolSettings()
 		{
 			return new AdbToolSettings { SdkRoot = ANDROID_SDK_ROOT };

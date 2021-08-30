@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Cake.AndroidAdb;
 using Cake.AndroidAdb.Fakes;
 using Xunit;
@@ -7,11 +8,14 @@ namespace Cake.Android.Adb.Tests
 {
 	public class AdbActivityManagerTests : TestFixtureBase
 	{
-		const string SDK_ROOT = "../../../android-sdk";
+		static string ANDROID_SDK_ROOT
+			=> Environment.GetEnvironmentVariable("ANDROID_HOME")
+				?? Environment.GetEnvironmentVariable("ANDROID_SDK_ROOT")
+				?? File.ReadAllText(Path.Combine(ContentPath, "android_home.txt"))?.Trim();
 
-		AdbToolSettings GetAdbToolSettings()
+		static AdbToolSettings GetAdbToolSettings()
 		{
-			return new AdbToolSettings { SdkRoot = SDK_ROOT };
+			return new AdbToolSettings { SdkRoot = ANDROID_SDK_ROOT };
 		}
 
 		[Fact]
