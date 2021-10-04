@@ -17,11 +17,14 @@
     <RepositoryUrl>https://github.com/cake-contrib/Cake.Android.Adb.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/cake-contrib/Cake.Android.Adb</PackageProjectUrl>
-    <PackageIconUrl>https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/cake-contrib-medium.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Cake.Core" Version="1.2.0" PrivateAssets="All" />
     <PackageReference Include="Cake.Common" Version="1.2.0" PrivateAssets="All" />
+    <PackageReference Include="CakeContrib.Guidelines" Version="1.1.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>
