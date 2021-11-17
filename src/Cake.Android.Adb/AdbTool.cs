@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Cake.Core;
 using Cake.Core.IO;
 using Cake.Core.Tooling;
@@ -40,14 +39,20 @@ namespace Cake.AndroidAdb
 			var results = new List<FilePath>();
 
 			var ext = environment.Platform.IsUnix() ? "" : ".exe";
-			var androidHome = settings.SdkRoot.MakeAbsolute(environment).FullPath;
-
-			if (!System.IO.Directory.Exists(androidHome))
-				androidHome = environment.GetEnvironmentVariable("ANDROID_HOME");
-			
-			if (!string.IsNullOrEmpty(androidHome) && System.IO.Directory.Exists(androidHome))
+			string androidHome = null;
+			if (settings?.SdkRoot != null)
 			{
-				var exe = new DirectoryPath(androidHome).Combine("platform-tools").CombineWithFilePath("adb" + ext);
+				androidHome = settings.SdkRoot.MakeAbsolute(environment).FullPath;
+			}
+
+			if (string.IsNullOrEmpty(androidHome) || !context.FileSystem.Exist(DirectoryPath.FromString(androidHome)))
+			{
+				androidHome = environment.GetEnvironmentVariable("ANDROID_HOME");
+			}
+			
+			if (!string.IsNullOrEmpty(androidHome) && context.FileSystem.Exist(DirectoryPath.FromString(androidHome)))
+			{
+				var exe = DirectoryPath.FromString(androidHome).Combine("platform-tools").CombineWithFilePath("adb" + ext);
 				results.Add(exe);
 			}
 
@@ -77,8 +82,8 @@ namespace Cake.AndroidAdb
 		bool RunAdb(AdbToolSettings settings, ProcessArgumentBuilder builder, System.Threading.CancellationToken cancelToken, out List<string> output)
 		{
 			var adbToolPath = this.GetToolPath(settings);
-			if (!context.FileSystem.Exist(adbToolPath))
-				throw new System.IO.FileNotFoundException("Could not find adb", settings.ToolPath.FullPath);
+			if (adbToolPath == null || !context.FileSystem.Exist(adbToolPath))
+				throw new System.IO.FileNotFoundException("Could not find adb", adbToolPath?.FullPath ?? "No path to adb found.");
 
 			var p = RunProcess(settings, builder, new ProcessSettings
 			{
