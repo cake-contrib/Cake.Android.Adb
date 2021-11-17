@@ -3,6 +3,7 @@ using Cake.AndroidAdb.Fakes;
 using System.Linq;
 using System;
 using System.IO;
+using Cake.Testing;
 
 namespace Cake.AndroidAdb.Tests
 {
@@ -73,6 +74,15 @@ namespace Cake.AndroidAdb.Tests
 
 			Assert.NotNull(path);
 			Assert.True(path.FullPath == "/system/priv-app/DownloadProvider/DownloadProvider.apk");
+		}
+
+		[Fact]
+		// https://github.com/cake-contrib/Cake.Android.Adb/issues/10
+		public void Settings_Is_Null_Does_Not_Throw()
+		{ 
+			Action action = () => Cake.PmPathToPackage("com.android.providers.downloads", settings: null);
+
+			Assert.Throws<FileNotFoundException>(action);
 		}
 	}
 }
